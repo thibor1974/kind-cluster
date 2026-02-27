@@ -5,5 +5,4 @@ metadata:
   namespace: test
 data:
   myfile.txt: |-
-    Hello from the ConfigMap file!
-    This text will be copied into the pod by the init container.
+    WTF This text will be copied into the pod by the init container.
