@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      volumes:
+        - name: shared-data
+          emptyDir: {}
+        - name: text-file
+          configMap:
+            name: my-text-file-cm
+            items:
+              - key: myfile.txt
+                path: myfile.txt
+      initContainers:
+        - name: init-copy
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - cp /tmp/config/myfile.txt /shared/myfile.txt && chmod 644 /shared/myfile.txt
+          volumeMounts:
+            - name: shared-data
+              mountPath: /shared
+            - name: text-file
+              mountPath: /tmp/config
+      containers:
+        - name: nginx
+          image: nginx:stable
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-data
+              mountPath: /usr/share/nginx/html
