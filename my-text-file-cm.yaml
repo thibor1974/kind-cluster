@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-text-file-cm
+  namespace: test
 data:
   myfile.txt: |-
     Hello from the ConfigMap file!
