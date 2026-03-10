@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "simple-web-server.fullname" . }}
+  labels:
+    {{- include "simple-web-server.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "simple-web-server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "simple-web-server.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: webserver
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+        - name: homepage
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: homepage
+        configMap:
+          name: {{ include "simple-web-server.fullname" . }}-homepage
