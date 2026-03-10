@@ -1,33 +1,7 @@
-deployments:
-  simple-web-server-1:
-    replicaCount: 2
-    image:
-      repository: nginx
-      tag: latest
-      pullPolicy: IfNotPresent
-    service:
-      type: ClusterIP
-      port: 80
-      targetPort: 8080
-    homepage:
-      title: "Welcome - Server 1 (PROD)"
-      content: |-
-        <h1>Simple Web Server 1 - PROD</h1>
-        <p>This is the first web server deployed with Helm.</p>
-        <p>THIS IS PROD</p>
-  simple-web-server-2:
-    replicaCount: 2
-    image:
-      repository: nginx
-      tag: latest
-      pullPolicy: IfNotPresent
-    service:
-      type: ClusterIP
-      port: 81
-      targetPort: 8080
-    homepage:
-      title: "Welcome - Server 2 (PROD)"
-      content: |-
-        <h1>Simple Web Server 2 - PROD</h1>
-        <p>This is the second web server deployed with Helm.</p>
-        <p>THIS IS PROD</p>
+replicaCount: 2
+homepage:
+  title: "Welcome"
+  content: |-
+    <h1>{{ .title }}</h1>
+    <p>This is a simple web server deployed with Helm.</p>
+    <p>THIS IS PROD</p>
