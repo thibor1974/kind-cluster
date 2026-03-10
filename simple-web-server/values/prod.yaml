@@ -1,0 +1,7 @@
+replicaCount: 2
+homepage:
+  title: "Welcome"
+  content: |-
+    <h1>{{ .title }}</h1>
+    <p>This is a simple web server deployed with Helm.</p>
+    <p>THIS IS PROD</p>
