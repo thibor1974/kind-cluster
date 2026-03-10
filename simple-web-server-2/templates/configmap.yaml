@@ -1,3 +1,4 @@
+{{- $config := include "simple-web-server.deploymentConfig" . | fromYaml }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,7 +10,7 @@ data:
     <!DOCTYPE html>
     <html>
     <head>
-      <title>{{ .Values.homepage.title }}</title>
+      <title>{{ $config.homepage.title }}</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -26,6 +27,6 @@ data:
       </style>
     </head>
     <body>
-      {{ .Values.homepage.content }}
+      {{ $config.homepage.content }}
     </body>
     </html>

@@ -29,6 +29,13 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Get deployment-specific configuration from values
+*/}}
+{{- define "simple-web-server.deploymentConfig" -}}
+{{- index .Values.deployments .Chart.Name }}
+{{- end }}
+
+{{/*
 Common labels
 */}}
 {{- define "simple-web-server.labels" -}}

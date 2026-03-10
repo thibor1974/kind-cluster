@@ -1,3 +1,4 @@
+{{- $config := include "simple-web-server.deploymentConfig" . | fromYaml }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,7 +6,7 @@ metadata:
   labels:
     {{- include "simple-web-server.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ $config.replicaCount }}
   selector:
     matchLabels:
       {{- include "simple-web-server.selectorLabels" . | nindent 6 }}
@@ -16,8 +17,8 @@ spec:
     spec:
       containers:
       - name: webserver
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        image: "{{ $config.image.repository }}:{{ $config.image.tag }}"
+        imagePullPolicy: {{ $config.image.pullPolicy }}
         ports:
         - name: http
           containerPort: 8080
