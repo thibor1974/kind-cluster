@@ -1,0 +1,15 @@
+replicaCount: 1
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+homepage:
+  title: "Welcome"
+  content: |
+    <h1>{{ .title }}</h1>
+    <p>This is a simple web server deployed with Helm.</p>
+    <p>You can customize this content by editing the values.yaml file.</p>

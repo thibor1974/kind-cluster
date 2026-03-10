@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "simple-web-server.fullname" . }}-homepage
+  labels:
+    {{- include "simple-web-server.labels" . | nindent 4 }}
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>{{ .Values.homepage.title }}</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 50px;
+          background-color: #f5f5f5;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          color: #666;
+          line-height: 1.6;
+        }
+      </style>
+    </head>
+    <body>
+      {{ .Values.homepage.content }}
+    </body>
+    </html>
